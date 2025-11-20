@@ -35,7 +35,7 @@ La aplicación cumple con los requisitos solicitados en la prueba técnica:
   - Estado inicial sin resultados
   - Estado de carga (loading) mientras se consulta la API
 - Diseño responsive para desktop y mobile.
-- Comunicación entre componentes mediante eventos personalizados (`Custom Events`).
+- Comunicación entre componentes mediante eventos personalizados (`CustomEvent`).
 
 ---
 
