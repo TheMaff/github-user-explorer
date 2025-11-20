@@ -13,6 +13,8 @@ El objetivo de este ejercicio es demostrar buenas prácticas de desarrollo Front
 
 ## 2. Vista previa
 
+> Captura de ejemplo de la aplicación en funcionamiento.
+
 ![Captura de GitHub User Explorer](./docs/screenshot.png)
 
 ---
