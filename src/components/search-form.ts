@@ -84,6 +84,18 @@ template.innerHTML = `
         transform: none;
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
     @media (max-width: 640px) {
       form {
         flex-direction: column;
@@ -96,20 +108,27 @@ template.innerHTML = `
     }
   </style>
 
-  <form novalidate>
+  <form novalidate role="search" aria-label="Búsqueda de usuarios de GitHub">
     <div class="field">
       <label>
         <div class="input-shell">
           <input
+            id="username-input"
             type="text"
             name="username"
             autocomplete="off"
             placeholder="Busca por nombre de usuario, ej. Midudev, devjaime, TheMaff..."
+            aria-label="Nombre de usuario de GitHub"
+            aria-required="true"
+            aria-describedby="search-hint"
           />
         </div>
       </label>
     </div>
-    <button type="submit">Buscar</button>
+    <button type="submit" aria-label="Buscar usuario">
+      <span aria-hidden="true">Buscar</span>
+      <span class="sr-only">Buscar usuario de GitHub</span>
+    </button>
   </form>
 `;
 
@@ -118,36 +137,49 @@ export class GitHubSearchForm extends HTMLElement {
     private _loading = false;
 
     set loading(value: boolean) {
-        this._loading = value;
-        const button = this.shadow.querySelector<HTMLButtonElement>('button[type="submit"]');
-        if (button) {
-            button.disabled = value;
-        }
+      this._loading = value;
+      const button = this.shadow.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const input = this.shadow.querySelector<HTMLInputElement>('input[name="username"]');
+
+      if (button) {
+        button.disabled = value;
+      }
+
+      if (input) {
+        input.disabled = value;
+        input.setAttribute('aria-busy', String(value));
+      }
     }
 
     get loading() {
-        return this._loading;
+      return this._loading;
     }
 
     connectedCallback() {
-        this.shadow.appendChild(template.content.cloneNode(true));
+      this.shadow.appendChild(template.content.cloneNode(true));
+      this.loading = this._loading;
 
-        this.loading = this._loading;
+      const form = this.shadow.querySelector('form');
+      const input = this.shadow.querySelector<HTMLInputElement>('input[name="username"]');
+      
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+          const username = input?.value ?? '';
 
-        const form = this.shadow.querySelector('form');
-        form?.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const input = this.shadow.querySelector<HTMLInputElement>('input[name="username"]');
-            const username = input?.value ?? '';
+        this.dispatchEvent(
+          new CustomEvent('search-user', {
+            detail: { username },
+            bubbles: true,
+            composed: true,
+          }),
+        );
+      });
 
-            this.dispatchEvent(
-                new CustomEvent('search-user', {
-                    detail: { username },
-                    bubbles: true,
-                    composed: true,
-                }),
-            );
-        });
+      input?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && !this._loading) {
+          form?.requestSubmit();
+        }
+      });
     }
 }
 
