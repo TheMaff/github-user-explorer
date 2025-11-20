@@ -13,13 +13,13 @@ El objetivo de este ejercicio es demostrar buenas prácticas de desarrollo Front
 
 ## 2. Vista previa
 
-/docs/screenshot.png
+![Captura de GitHub User Explorer](./docs/screenshot.png)
 
 ---
 
 ## 3. Requisitos funcionales cubiertos
 
-La aplicación cumple con los requisitos solicitados en la prueba técnica: README
+La aplicación cumple con los requisitos solicitados en la prueba técnica:
 
 - Búsqueda por nombre de usuario de GitHub.
 - Consumo de la API REST: `https://api.github.com/users/{username}`.
@@ -29,15 +29,13 @@ La aplicación cumple con los requisitos solicitados en la prueba técnica: READ
   - Bio
   - Número de repositorios públicos
   - Enlace al perfil de GitHub
-
 - Manejo de estados y errores:
   - Usuario no encontrado (404)
   - Errores genéricos de red / API
   - Estado inicial sin resultados
   - Estado de carga (loading) mientras se consulta la API
-
 - Diseño responsive para desktop y mobile.
-- Comunicación entre componentes mediante eventos personalizados (Custom Events).
+- Comunicación entre componentes mediante eventos personalizados (`Custom Events`).
 
 ---
 
@@ -52,7 +50,7 @@ La aplicación cumple con los requisitos solicitados en la prueba técnica: READ
 
 ## 5. Arquitectura y organización
 
-Aunque se trata de una aplicación pequeña, el código se organizó inspirándose en Clean Architecture y principios SOLID, buscando una separación clara de responsabilidades y un bajo acoplamiento entre capas. README
+Aunque se trata de una aplicación pequeña, el código se organizó inspirándose en Clean Architecture y principios SOLID, buscando una separación clara de responsabilidades y un bajo acoplamiento entre capas.
 
 **Capas principales**
 - Core *(Dominio + servicios)*
@@ -62,7 +60,7 @@ Aunque se trata de una aplicación pequeña, el código se organizó inspirándo
 
 - Presentación (UI) – Web Components
 
-  - `<app-root>`: componente raíz, orquesta el estado de la aplicación (usuario, loading, error).
+  - `<app-root>`: componente raíz, orquesta el estado de la aplicación (`usuario`, `loading`, `error`).
   - `<github-search-form>`: formulario de búsqueda, emite el evento personalizado `search-user`.
   - `<github-user-card>`: tarjeta reutilizable encargada de mostrar:
     - Estados: inicial, loading, error, resultado.
@@ -79,26 +77,26 @@ Aunque se trata de una aplicación pequeña, el código se organizó inspirándo
   El modelo GitHubUser y las funciones asociadas están fuertemente tipadas para facilitar mantenimiento y detectar errores en tiempo de compilación.
 
 - Eventos personalizados:
-  La comunicación entre `<github-search-form>` y `<app-root>` se realiza mediante CustomEvent, evitando acoplar los componentes entre sí.
+  La comunicación entre `<github-search-form>` y `<app-root>` se realiza mediante `CustomEvent`, evitando acoplar los componentes entre sí.
 
 ---
 
 ## 6. Estructura de carpetas
 
-src/
-  core/
-    services/
-      github-user.service.ts   # Llamadas a la API de GitHub + manejo de errores
-    types/
-      github-user.ts           # Modelo de dominio + mapper desde la API
+- src/
+  - core/
+    - services/
+      - github-user.service.ts   # Llamadas a la API de GitHub + manejo de errores
+    - types/
+      - github-user.ts           # Modelo de dominio + mapper desde la API
 
-  components/
-    app-root.ts                # Componente raíz y gestión de estado
-    search-form.ts             # Formulario de búsqueda, emite 'search-user'
-    user-card.ts               # Tarjeta de usuario, muestra datos y estados
+  - components/
+    - app-root.ts                # Componente raíz y gestión de estado
+    - search-form.ts             # Formulario de búsqueda, emite 'search-user'
+    - user-card.ts               # Tarjeta de usuario, muestra datos y estados
 
-  index.css                    # Estilos globales *(tokens de diseño y layout base)*
-  main.ts                      # Punto de entrada, registra `<app-root>`
+  - index.css                    # Estilos globales *(tokens de diseño y layout base)*
+  - main.ts                      # Punto de entrada, registra `<app-root>`
 
 ---
 
@@ -137,13 +135,12 @@ Actualmente se incluye un test para el mapper `mapGitHubUser`, que valida la con
 
 ## 9. Decisiones de diseño
 
-- Se utilizaron Web Components para demostrar la capacidad de construir una UI reutilizable sin frameworks, manteniendo al mismo tiempo una arquitectura clara y testeable. README
+- Se utilizaron Web Components para demostrar la capacidad de construir una UI reutilizable sin frameworks, manteniendo al mismo tiempo una arquitectura clara y testeable.
 
 - La API pública de GitHub se consume desde una capa de servicio dedicada (GitHubUserService), lo que permite aislar el código de infraestructura de la UI.
 
 - La interfaz se diseñó inspirándose en layouts de productos de GitHub (pricing, marketplace, landing pages), con:
-
-  - Fondo gris claro (#f6f8fa) y tarjetas blancas con borde sutil.
+  - Fondo gris claro (`#f6f8fa`) y tarjetas blancas con borde sutil.
   - Jerarquía tipográfica clara (título, subtítulo, metadatos).
   - Componentes centrados, con suficiente espacio en blanco para mejorar legibilidad.
 
