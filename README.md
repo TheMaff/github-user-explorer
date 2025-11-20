@@ -162,6 +162,12 @@ Algunas mejoras que podrían incorporarse si el alcance se ampliara:
 
 ---
 
-## 11. Autor
+## 11. Demo
+
+https://github-user-explorer-maff.netlify.app
+
+---
+
+## 12. Autor
 
 Desarrollado por Marcos Flores como parte de una prueba técnica para el rol de Desarrollador Frontend.
