@@ -19,4 +19,20 @@ describe('mapGitHubUser', () => {
         expect(user.publicRepos).toBe(42);
         expect(user.profileUrl).toBe('http://github.com/TheMaff');
     });
+
+    it('usa valores por defecto cuando faltan campos en la respuesta', () => {
+        const apiResponse = {
+            login: 'user-sin-datos',
+            avatar_url: 'http://avatar',
+            public_repos: undefined,
+            html_url: 'http://github.com/user-sin-datos',
+        };
+
+        const user = mapGitHubUser(apiResponse);
+
+        expect(user.name).toBeNull();
+        expect(user.bio).toBeNull();
+        expect(user.publicRepos).toBe(0);
+    });
+
 });
