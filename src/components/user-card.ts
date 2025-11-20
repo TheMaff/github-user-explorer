@@ -93,7 +93,7 @@ template.innerHTML = `
     }
 
     .status-muted {
-      color: var(--text-soft);
+      color: var(--text-muted);
       opacity: 0.8;
       text-align: center;
       margin-top: 0.75rem;
