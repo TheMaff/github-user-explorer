@@ -126,7 +126,7 @@ template.innerHTML = `
       </label>
     </div>
     <button type="submit" aria-label="Buscar usuario">
-      <span aria-hidden="true">Buscar</span>
+      <span aria-hidden="true">Buscar usuario</span>
       <span class="sr-only">Buscar usuario de GitHub</span>
     </button>
   </form>
