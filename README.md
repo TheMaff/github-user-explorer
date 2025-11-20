@@ -164,7 +164,7 @@ Algunas mejoras que podrían incorporarse si el alcance se ampliara:
 
 ## 11. Demo
 
-https://github-user-explorer-maff.netlify.app
+https://github-user-explorer-themaff.netlify.app
 
 ---
 
